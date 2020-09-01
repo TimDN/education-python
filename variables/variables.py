@@ -1,7 +1,15 @@
 
 def init_variable():
-    age = 28
-    print(age)
+    #declares a variable with name age
+    user_age = input("Input you age: ")
+    user_name = "Tim"
+    user_float = 10.12111
+
+    print(f'Hello {user_name}')
+
+    print("Age: {}, Name: {}".format(user_age, user_name))
+    print(f"Age: {user_age}, Name: {user_name} ,Test {user_float:.2f}")
+
 
 def naming_example():
     average_age = 26 #correct
@@ -57,3 +65,5 @@ def bool_example():
     is_false = 1 == 2
     # is false is a bool with value False
     print(1 == 2) # prints False
+
+init_variable()
