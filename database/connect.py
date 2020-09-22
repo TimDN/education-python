@@ -8,8 +8,8 @@ def cursor_example():
         record = cursor.fetchall()
         print("SQLite version:",record)
         # prints SQLite version [('3.31.1',)]
-        cursor.close()
     finally:
+        cursor.close()
         db_connection.close()
 
 def connect_and_close():
@@ -20,5 +20,18 @@ def connect_and_close():
     finally:
         db_connection.close()
 
-connect_and_close()
-cursor_example()
+
+def unique_test():
+    db_connection = sqlite3.connect("unique.db")
+    cursor = db_connection.cursor()
+    create_student_table = """ CREATE TABLE IF NOT EXISTS student (
+                            id integer PRIMARY KEY,
+                            name text NOT NULL UNIQUE,
+                            age integer UNIQUE
+                        ) """
+    cursor.execute(create_student_table)
+    insert_student = "INSERT INTO student (id, name) VALUES (null, ?)"
+    cursor.execute(insert_student, ["foo"])
+    db_connection.commit()
+    cursor.execute(insert_student, ["foo"])
+    db_connection.commit()

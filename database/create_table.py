@@ -1,22 +1,35 @@
 import sqlite3
 
+def main():
+    try:
+        db_connection = sqlite3.connect("school.db")
+        cursor = db_connection.cursor()
+        get_students(cursor)
+    finally:
+        cursor.close()
+        db_connection.close()
+
 def create_table(cursor):
     create_student_table = """ CREATE TABLE IF NOT EXISTS student (
                             id integer PRIMARY KEY,
-                            name text NOT NULL
+                            name text NOT NULL,
+                            age integer
                         ) """
     cursor.execute(create_student_table)
     # creates table with attributes id and name
 
-
 def insert_student(cursor, connection, name):
-    insert_student_query = "INSERT INTO student VALUES (null, ?)"
+    insert_student_query = "INSERT INTO student (id, name) VALUES (null, ?)"
     cursor.execute(insert_student_query, [name])
     connection.commit()
 
+def get_students(cursor):
+    get_studenst_query = "SELECT * FROM student"
+    cursor.execute(get_studenst_query)
+    result = cursor.fetchall()
+    print(result)
 
 def get_students_with_name(cursor, name):
-    name = "Foo"
     get_students_query = "SELECT * FROM student WHERE name = ?"
     cursor.execute(get_students_query, [name])
     result = cursor.fetchall() # returns all rows in a list
@@ -29,10 +42,12 @@ def get_student_name(cursor, id):
     result = cursor.fetchone() # returns a row
     print(result) # prints ('Foo',)
 
+def set_default_age(cursor, connection):
+    update_name_query = "UPDATE student SET age = 0 WHERE age IS NULL"
+    cursor.execute(update_name_query)
+    connection.commit()
 
 def update_student_name(cursor, connection, new_name, old_name):
-    new_name = "Bar"
-    old_name = "Foo"
     update_name_query = "UPDATE student SET name = ? WHERE name = ?"
     cursor.execute(update_name_query, [new_name, old_name])
     connection.commit()
@@ -103,4 +118,5 @@ def chinook_demo():
         db_connection.close()
 
 
-chinook_demo()
+if __name__ == "__main__":
+    main()
