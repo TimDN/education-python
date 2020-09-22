@@ -9,5 +9,3 @@ bar.first_name = "Bar" # changing first_name of this Person instance
 print(foo.first_name) #prints Foo (no change)
 print(bar.first_name) #prints Bar (changed)
 test = Person()
-
-

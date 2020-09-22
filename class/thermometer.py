@@ -1,3 +1,9 @@
+def main():
+    temp = Thermometer(10)
+    temp.change_temperature(100)
+    print(temp)
+
+
 class Thermometer:
     """
     A thermometer class that is used to keep track of the current
@@ -21,14 +27,16 @@ class Thermometer:
 
     def change_temperature(self, new_temperature):
         """
-        :param new_temperautre: The new temperature in celsius
+        This changes the temperatue used by the therometer
+
+        :param new_temperature: The new temperature in celsius
         :raises ValueError: If below absolute zero
         """
         if new_temperature < -273.15:
             raise ValueError("Can not set below absolute zero")
-        self.temperature
+        self.temperature = new_temperature
 
 
-temp = Thermometer(10)
-temp.change_temperature(100)
-print(temp)
+if __name__ == "__main__":
+    main()
+
