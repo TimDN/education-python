@@ -1,7 +1,7 @@
 import tkinter as tk
 
 def print_name():
-    print(name_entry.get())
+    print(ent_name.get())
     # prints Foo Bar to console
 
 root = tk.Tk()
